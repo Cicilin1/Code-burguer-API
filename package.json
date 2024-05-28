@@ -1,0 +1,15 @@
+{
+  "name": "burgerbackend-principal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Guilherme Cicilini",
+  "url": "https://github.com/Cicilin1",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
