@@ -12,5 +12,6 @@ const upload = multer(multerConfig);
 routes.post('/users', UserController.store);
 routes.post('/session', SessionController.store);
 routes.post('/products', upload.single('file'), ProductsController.store);
+routes.get('/products', ProductsController.index);
 
 export default routes;
