@@ -5,7 +5,7 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import ProductsController from './app/controllers/ProductsController';
 import CategoryController from './app/controllers/CategoryController';
-import authMiddlewares from './middlewares/auth';
+import authMiddlewares from './app/middlewares/auth';
 
 const routes = new Router();
 
