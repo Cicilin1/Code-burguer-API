@@ -20,6 +20,8 @@ class CategoryController {
       return response.status(401).json();
     }
 
+    const { filename: path } = request.file;
+
     const { name } = request.body;
 
     const categoryExist = await Category.findOne({
@@ -34,6 +36,7 @@ class CategoryController {
 
     const { id } = await Category.create({
       name,
+      path,
     });
 
     return response.status(201).json({ id, name });

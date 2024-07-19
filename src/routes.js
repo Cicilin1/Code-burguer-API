@@ -20,7 +20,7 @@ routes.post('/products', upload.single('file'), ProductsController.store);
 routes.get('/products', ProductsController.index);
 routes.put('/products/:id', upload.single('file'), ProductsController.update);
 
-routes.post('/categories', CategoryController.store);
+routes.post('/categories', upload.single('file'), CategoryController.store);
 routes.get('/categories', CategoryController.index);
 
 routes.post('/orders', OrderController.store);
