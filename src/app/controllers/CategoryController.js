@@ -31,7 +31,7 @@ class CategoryController {
     });
 
     if (categoryExist) {
-      return response.status(400).json({ error: 'Category aleady exist!' });
+      return response.status(400).json({ error: 'Category already exists!' });
     }
 
     const { id } = await Category.create({
@@ -40,6 +40,65 @@ class CategoryController {
     });
 
     return response.status(201).json({ id, name });
+  }
+
+  async update(request, response) {
+    const schema = Yup.object({
+      name: Yup.string(),
+    });
+
+    try {
+      schema.validateSync(request.body, { abortEarly: false });
+    } catch (err) {
+      return response.status(400).json({ error: err.errors });
+    }
+
+    const { admin: isAdmin } = await User.findByPk(request.userId);
+
+    if (!isAdmin) {
+      return response.status(401).json();
+    }
+
+    const { id } = request.params;
+    const categoryExist = await Category.findByPk(id);
+
+    if (!categoryExist) {
+      return response
+        .status(400)
+        .json({ message: 'Make sure your category ID is correct' });
+    }
+
+    let path;
+    if (request.file) {
+      path = request.file.filename;
+    }
+
+    const { name } = request.body;
+
+    if (name) {
+      const categoryNameExist = await Category.findOne({
+        where: {
+          name,
+        },
+      });
+
+      if (categoryNameExist && categoryNameExist.id !== +id) {
+        return response.status(400).json({ error: 'Category already exists!' });
+      }
+    }
+
+    await Category.update(
+      {
+        name,
+        path,
+      },
+      {
+        where: {
+          id,
+        },
+      },
+    );
+    return response.status(202).json();
   }
 
   async index(request, response) {
